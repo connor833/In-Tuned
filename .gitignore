@@ -60,6 +60,14 @@ sendgrid.env
 **/Config-Production.xcconfig
 **/Config-Development.xcconfig
 
+# Config Files with API Keys
+**/Config/AIConfig.swift
+**/Config/R2Config.swift
+**/Config/FirebaseConfig.swift
+AIConfig.swift
+R2Config.swift
+FirebaseConfig.swift
+
 # Cloud Functions (contains API keys in config)
 Functions/.runtimeconfig.json
 Functions/service-account.json
