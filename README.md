@@ -1,4 +1,4 @@
-# 🚀 PodWeb Blueprint
+# 🚀 In-Tuned
 
 **AI-Powered Content Categorization & Recommendation Engine**
 
@@ -6,7 +6,7 @@ A sophisticated, production-ready content recommendation system that automatical
 
 ## 🌟 Overview
 
-PodWeb Blueprint is a cutting-edge content platform that combines **artificial intelligence**, **machine learning**, and **user behavior analysis** to create a highly personalized content discovery experience. Built with SwiftUI and Firebase, it features an intelligent categorization system that automatically tags content and learns from user interactions to serve increasingly relevant recommendations.
+In-Tuned is a cutting-edge content platform that combines **artificial intelligence**, **machine learning**, and **user behavior analysis** to create a highly personalized content discovery experience. Built with SwiftUI and Firebase, it features an intelligent categorization system that automatically tags content and learns from user interactions to serve increasingly relevant recommendations.
 
 ## ✨ Key Features
 
@@ -21,7 +21,7 @@ PodWeb Blueprint is a cutting-edge content platform that combines **artificial i
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                           PODWEB BLUEPRINT ECOSYSTEM                       │
+│                            IN-TUNED ECOSYSTEM                              │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐  │
 │  │   CONTENT   │    │     AI      │    │    USER     │    │  CONTENT    │  │
@@ -312,7 +312,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🎉 What Makes This Special
 
-PodWeb Blueprint represents a **sophisticated, production-ready content recommendation system** that rivals what you'd see in major platforms like YouTube, Netflix, and TikTok. It combines:
+In-Tuned represents a **sophisticated, production-ready content recommendation system** that rivals what you'd see in major platforms like YouTube, Netflix, and TikTok. It combines:
 
 - **Cutting-edge AI technology** with practical implementation
 - **User-centric design** with powerful backend architecture
