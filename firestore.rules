@@ -1,0 +1,23 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ===== TEMPORARILY PERMISSIVE RULES FOR DEVELOPMENT =====
+    // TODO: Replace with proper security rules when ready
+    
+    // Allow all authenticated users to read and write everything
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Specific rules for userSessions collection - more permissive for development
+    match /userSessions/{sessionId} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Specific rules for sessionEvents collection
+    match /sessionEvents/{eventId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

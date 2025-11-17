@@ -1,0 +1,12 @@
+specVersion: "v1"
+serviceId: "podwebblueprint"
+location: "us-central1"
+schema:
+  source: "./schema"
+  datasource:
+    postgresql:
+      database: "fdcdb"
+      cloudSql:
+        instanceId: "podwebblueprint-fdc"
+      # schemaValidation: "COMPATIBLE"
+connectorDirs: ["./connector"]

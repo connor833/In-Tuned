@@ -1,0 +1,62 @@
+# Xcode
+.DS_Store
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+*.hmap
+*.ipa
+*.xcuserstate
+*.xcscmblueprint
+
+# CocoaPods
+Pods/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Firebase & Sensitive Config
+GoogleService-Info.plist
+**/GoogleService-Info.plist
+firebase.json
+.firebaserc
+
+# API Keys and Secrets
+*.env
+.env
+sendgrid.env
+**/Config-Production.xcconfig
+**/Config-Development.xcconfig
+
+# Cloud Functions (contains API keys in config)
+Functions/.runtimeconfig.json
+Functions/service-account.json
+
+# Node modules
+**/node_modules/
+**/package-lock.json
+
+# Python
+*.pyc
+__pycache__/
+
+# IDEs
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
