@@ -17,6 +17,8 @@ DerivedData/
 *.ipa
 *.xcuserstate
 *.xcscmblueprint
+Info.plist
+**/Info.plist
 
 # CocoaPods
 Pods/
@@ -30,6 +32,26 @@ GoogleService-Info.plist
 **/GoogleService-Info.plist
 firebase.json
 .firebaserc
+firestore.rules
+firestore.indexes.json
+storage.rules
+**/firestore.rules
+**/firestore.indexes.json
+**/storage.rules
+deploy_firestore_indexes.sh
+deploy_security.sh
+**/deploy_security.sh
+
+# Firebase Data Connect (generated & config)
+dataconnect/
+dataconnect-generated/
+**/dataconnect/
+**/dataconnect-generated/
+
+# Cloudflare Workers (contains API keys)
+*-worker.js
+attuned-uploader-worker.js
+corrected-worker.js
 
 # API Keys and Secrets
 *.env
@@ -49,6 +71,19 @@ Functions/service-account.json
 # Python
 *.pyc
 __pycache__/
+
+# Development/Translation Scripts
+**/add_chinese_translations.py
+**/add_language_support.py
+**/add_missing_format_translations.py
+**/complete_chinese_translations.py
+**/complete_final_chinese_translations.py
+**/complete_spanish_translations.py
+**/finalize_chinese_translations.py
+**/finalize_spanish_translations.py
+**/verify_chinese_coverage.py
+fix_weak_self_issues.sh
+test_follow_pods_optimization.swift
 
 # IDEs
 .vscode/
