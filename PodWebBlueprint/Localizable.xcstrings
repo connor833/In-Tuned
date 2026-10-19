@@ -5243,6 +5243,7 @@
 
     },
     "Pod no longer available" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
@@ -7148,6 +7149,9 @@
 
     },
     "This may take a moment..." : {
+
+    },
+    "This pod has been deleted" : {
 
     },
     "This pod is currently unavailable and cannot be viewed." : {

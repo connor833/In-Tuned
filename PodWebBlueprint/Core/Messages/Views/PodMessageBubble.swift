@@ -59,137 +59,136 @@ struct PodMessageBubble: View {
             HStack {
                 // Display the pod content
                 if let pod = messageViewModel.pod(for: messageBubbleViewModel.message) {
-                    // Unified card with overlay content
-                    ZStack {
-                        // Thumbnail background with NavigationLink
+                    // Clean card layout (similar to PodRowView)
+                    VStack(spacing: 12) {
+                        // Thumbnail
                         NavigationLink {
                             PlayerView(url: URL(string: pod.fileUrl)!, pod: pod)
                                 .id(pod.id)
                         } label: {
                             KFImage(URL(string: pod.thumbnailUrl))
                                 .resizable()
-                                .aspectRatio(contentMode: .fit) // Changed from scaledToFill to fit to preserve aspect ratio
-                                .frame(maxHeight: 180) // Use maxHeight to allow adaptive width
+                                .aspectRatio(contentMode: .fit)
+                                .frame(maxHeight: 160)
                                 .clipped()
-                                .cornerRadius(20)
+                                .cornerRadius(12)
                         }
                         .buttonStyle(PlainButtonStyle())
                         
-                        // Gradient overlay for better text readability
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.clear, Color.black.opacity(0.7)]),
-                            startPoint: .top,
-                            endPoint: .bottom
-                        )
-                        .cornerRadius(20)
-                        .allowsHitTesting(false)
-                        
-                        // Content overlay
-                        VStack {
-                            Spacer()
+                        // Content below thumbnail
+                        VStack(alignment: .leading, spacing: 8) {
+                            // Title
+                            Text(pod.title)
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(.primary)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
                             
-                            HStack {
-                                VStack(alignment: .leading, spacing: 6) {
-                                    // Title
-                                    Text(pod.title)
-                                        .font(.system(size: 16, weight: .semibold))
-                                        .foregroundColor(.white)
-                                        .lineLimit(2)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    // Description
-                                    Text(pod.description)
-                                        .font(.system(size: 12, weight: .regular))
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .lineLimit(2)
-                                        .multilineTextAlignment(.leading)
-                                    
-                                    // Creator info
-                                    HStack(spacing: 8) {
-                                        // Profile image
-                                        if let user = pod.user, !user.profileImageUrl.isEmpty {
-                                            KFImage(URL(string: user.profileImageUrl))
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(width: 20, height: 20)
-                                                .clipShape(Circle())
-                                                .overlay(
-                                                    Circle()
-                                                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
-                                                )
-                                        } else {
+                            // Description
+                            Text(pod.description)
+                                .font(.system(size: 13, weight: .regular))
+                                .foregroundColor(.secondary)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
+                            
+                            // Creator info and type
+                            HStack(spacing: 8) {
+                                // Profile image
+                                if let user = pod.user, !user.profileImageUrl.isEmpty {
+                                    KFImage(URL(string: user.profileImageUrl))
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 24, height: 24)
+                                        .clipShape(Circle())
+                                        .overlay(
                                             Circle()
-                                                .fill(Color.white.opacity(0.3))
-                                                .frame(width: 20, height: 20)
-                                                .overlay(
-                                                    Text(getUserInitial(pod))
-                                                        .font(.system(size: 10, weight: .bold))
-                                                        .foregroundColor(.white)
-                                                )
-                                        }
-                                        
-                                        Text(getUsername(pod))
-                                            .font(.system(size: 12, weight: .medium))
-                                            .foregroundColor(.white.opacity(0.9))
-                                        
-                                        Spacer()
-                                        
-                                        // Type indicator
-                                        HStack(spacing: 4) {
-                                            Image(systemName: isVideoPod(pod) ? "play.rectangle" : "waveform")
-                                                .font(.system(size: 10, weight: .medium))
-                                            Text(isVideoPod(pod) ? "Video" : "Audio")
-                                                .font(.system(size: 10, weight: .medium))
-                                        }
-                                        .foregroundColor(.white.opacity(0.8))
-                                        .padding(.horizontal, 6)
-                                        .padding(.vertical, 3)
-                                        .background(
-                                            Capsule()
-                                                .fill(Color.white.opacity(0.2))
+                                                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
                                         )
-                                    }
+                                } else {
+                                    Circle()
+                                        .fill(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color("accentColor"), Color("accentColor").opacity(0.8)]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                        .frame(width: 24, height: 24)
+                                        .overlay(
+                                            Text(getUserInitial(pod))
+                                                .font(.system(size: 10, weight: .bold))
+                                                .foregroundColor(.white)
+                                        )
                                 }
                                 
+                                Text(getUsername(pod))
+                                    .font(.system(size: 13, weight: .medium))
+                                    .foregroundColor(.primary)
+                                
                                 Spacer()
+                                
+                                // Type indicator
+                                HStack(spacing: 4) {
+                                    Image(systemName: isVideoPod(pod) ? "play.rectangle.fill" : "waveform")
+                                        .font(.system(size: 10, weight: .medium))
+                                    Text(isVideoPod(pod) ? "Video" : "Audio")
+                                        .font(.system(size: 11, weight: .medium))
+                                }
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(
+                                    Capsule()
+                                        .fill(Color(.systemGray6))
+                                )
                             }
-                            .padding(16)
                         }
-                        .allowsHitTesting(false)
+                        .padding(.horizontal, 12)
+                        .padding(.bottom, 12)
                     }
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(.systemBackground))
+                    )
                     .shadow(
-                        color: messageBubbleViewModel.message.senderId != currentUid ? 
-                        Color.black.opacity(0.15) : 
-                        Color("accentColor").opacity(0.2),
-                        radius: messageBubbleViewModel.message.senderId != currentUid ? 8 : 12,
+                        color: Color.black.opacity(0.08),
+                        radius: 12,
                         x: 0,
-                        y: messageBubbleViewModel.message.senderId != currentUid ? 4 : 6
+                        y: 4
                     )
                     .overlay(
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 16)
                             .stroke(
                                 messageBubbleViewModel.message.senderId != currentUid ? 
-                                Color.gray.opacity(0.2) : 
-                                Color("accentColor").opacity(0.3),
+                                Color.gray.opacity(0.15) : 
+                                Color("accentColor").opacity(0.2),
                                 lineWidth: 1
                             )
                     )
                 } else if loadAttempted {
                     VStack(spacing: 16) {
-                        Image(systemName: "exclamationmark.triangle")
+                        Image(systemName: "exclamationmark.triangle.fill")
                             .font(.system(size: 32, weight: .medium))
-                            .foregroundColor(.gray)
+                            .foregroundColor(.orange)
                         
-                        Text("Pod no longer available")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(.gray)
+                        Text("Pod not available")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        Text("This pod has been deleted")
+                            .font(.system(size: 13, weight: .regular))
+                            .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
                     }
-                    .frame(width: 240, height: 180)
+                    .frame(width: 240, height: 200)
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color(.systemGray6))
-                            .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(.systemBackground))
+                    )
+                    .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 4)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.gray.opacity(0.15), lineWidth: 1)
                     )
                 } else {
                     VStack(spacing: 16) {
@@ -199,9 +198,14 @@ struct PodMessageBubble: View {
                         
                         Text("Loading pod...")
                             .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(.gray)
+                            .foregroundColor(.secondary)
                     }
-                    .frame(width: 240, height: 180)
+                    .frame(width: 240, height: 200)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(Color(.systemBackground))
+                    )
+                    .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 4)
                     .onAppear {
                         // Set loadAttempted to true after a short delay
                         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {

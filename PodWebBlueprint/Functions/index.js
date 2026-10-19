@@ -2748,6 +2748,26 @@ exports.sendVerificationCode = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('invalid-argument', 'Email is required');
   }
   
+  // Check if email already exists in Firebase Auth
+  try {
+    const userRecord = await admin.auth().getUserByEmail(email);
+    // If we get here, the user exists
+    console.log(`❌ [sendVerificationCode] Email ${email} already exists in Firebase Auth`);
+    throw new functions.https.HttpsError('already-exists', 'This email is already registered. Please use a different email or try logging in.');
+  } catch (error) {
+    // If error is 'already-exists', re-throw it (email exists)
+    if (error.code === 'functions/already-exists') {
+      throw error;
+    }
+    // If error is 'auth/user-not-found', that's good - email doesn't exist, proceed
+    if (error.code !== 'auth/user-not-found') {
+      // Some other error occurred
+      console.error(`⚠️ [sendVerificationCode] Unexpected error checking email ${email}:`, error);
+      throw new functions.https.HttpsError('internal', 'Failed to verify email availability');
+    }
+    // Email doesn't exist, continue with sending verification code
+  }
+  
   // No rate limiting - allow multiple codes, only the most recent will work
   
   // Generate random 6-digit code

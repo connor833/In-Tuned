@@ -169,8 +169,21 @@ struct EmailCodeVerificationView: View {
                     print("✅ [EmailCodeVerificationView] Verification code sent successfully")
                 } else {
                     print("❌ [EmailCodeVerificationView] Failed to send verification code: \(error?.localizedDescription ?? "Unknown error")")
-                    alertTitle = "Error"
-                    alertMessage = error?.localizedDescription ?? "Failed to send verification code."
+                    
+                    // Extract user-friendly error message
+                    let errorMessage = error?.localizedDescription ?? "Failed to send verification code."
+                    
+                    // Check if error is about email already existing
+                    if errorMessage.contains("already registered") || 
+                       errorMessage.contains("already exists") ||
+                       (error as NSError?)?.localizedDescription.contains("already") == true {
+                        alertTitle = "Email Already Registered"
+                        alertMessage = "This email is already registered. Please use a different email or try logging in."
+                    } else {
+                        alertTitle = "Error"
+                        alertMessage = errorMessage
+                    }
+                    
                     showAlert = true
                 }
             }
